@@ -3,8 +3,8 @@
 errorFile="error_message.csv"
 userFile="user_statistic.csv"
 
-echo ERROR,Count > $errorFile
-echo Username,INFO,ERROR > $userFile
+echo ERROR,Count >"$errorFile"
+echo Username,INFO,ERROR >"$userFile"
 
 messages=()
 messageCount=(0 0 0 0 0 0 0 0 0 0)
@@ -47,17 +47,14 @@ grep ERROR ~/Documents/ITS/sisop/seslab1/_soalShift/soal1/syslog.log | while rea
     getErrorMessage $count "$line"
     appendAndCount
 
-    #    for message in "${messages[@]}"
-    #    do
-    #        printf "${message}\n"
-    #    done
+    #write
+    index=0
+    for message in "${messages[@]}"; do
+        printf "${message}, ${messageCount[index]}\n" >>"$errorFile"
+        index=$(($index + 1))
+    done
 done
 
-echo "$messages"
-index=0
-for message in "${messages[@]}"; do
-    printf "${message}\n"
-    # , ${messageCount[index]}\n"
-    # >> errorFile
-    # index=$(($index + 1));
-done
+sed -i $errorFile -re '2,362d';
+
+echo 'x' | ex -s -c '2,$!sort -t"," -r -n -k2 -k1' $errorFile
