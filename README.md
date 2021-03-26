@@ -175,4 +175,4 @@ kemudian melakukan sorting
 1. di soal pin yang e timbul behaviour aneh dari command yang dijalankan, sepertinya trailing whitespace tapi jika
    dilakukan cat command yang keluar adalah sbb
 
-   (./keanehan_command.png "This is a sample image.")
+   ![This is a alt text.](./keanehan_command.png "This is a sample image.")
