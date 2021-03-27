@@ -24,7 +24,7 @@ do
     if [[ -n "${filecksums[$cksum]}" ]] && [[ "${filecksums[$cksum]}" != "$file" ]]
     then
         echo "Found '$file' is a duplicate of '${filecksums[$cksum]}'" >&2
-        rm -f "$file")
+        rm -f "$file"
     else
         filecksums[$cksum]="$file"
     fi
