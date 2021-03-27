@@ -294,4 +294,86 @@ Pada penampilan hasil.txt yang ditunjukkan pada soal 2e, didapat dari proses 2a,
 
 
 # ============== NOMER 3 ===============
-....
+
+### 3a
+```bash
+#!/bin/bash
+
+{
+for ((i=1; i<24; i=i+1))
+do
+    if [ $i -lt 10 ]
+    then
+        wget -c https://loremflickr.com/320/240/kitten -O Koleksi_0$i
+    else
+        wget -c https://loremflickr.com/320/240/kitten -O Koleksi_$i
+    fi
+done
+
+declare -A filecksums
+
+test 0 -eq $# && set -- *
+
+for file in "$@"
+do
+    [[ -f "$file" ]] && [[ ! -h "$file" ]] || continue
+
+    cksum=$(cksum <"$file" | tr ' ' _)
+
+    if [[ -n "${filecksums[$cksum]}" ]] && [[ "${filecksums[$cksum]}" != "$file" ]]
+    then
+        echo "Found '$file' is a duplicate of '${filecksums[$cksum]}'" >&2
+        rm -f "$file"
+    else
+        filecksums[$cksum]="$file"
+    fi
+done
+} 2>Foto.log
+```
+Karena di soal diminta untuk mendownload 23 gambar, maka dibuat loop terlebih dahulu. Lalu pada setiap iterasi download file. Kemudian dari foto-foto yang sudah di-download, dicari apakah ada yang sama dengan cara membandingkannya. Jika sama, maka salah satu foto dihapus. Kemudian output dari script disimpan di Foto.log
+
+### 3b
+```bash
+#!/bin/bash
+
+TGL_NOW="$(date +"%d-%m-%Y")"
+mkdir "$TGL_NOW"
+cd "$TGL_NOW"
+
+{
+
+for ((i=1; i<24; i=i+1))
+do
+    if [ $i -lt 10 ]
+    then
+        wget -c https://loremflickr.com/320/240/kitten -O Koleksi_0$i -P /
+    else
+        wget -c https://loremflickr.com/320/240/kitten -O Koleksi_$i
+    fi
+done
+
+declare -A filecksums
+
+test 0 -eq $# && set -- *
+
+for file in "$@"
+do
+    [[ -f "$file" ]] && [[ ! -h "$file" ]] || continue
+
+    cksum=$(cksum <"$file" | tr ' ' _)
+
+    if [[ -n "${filecksums[$cksum]}" ]] && [[ "${filecksums[$cksum]}" != "$file" ]]
+    then
+        echo "Found '$file' is a duplicate of '${filecksums[$cksum]}'" >&2
+        rm -f "$file"
+    else
+        filecksums[$cksum]="$file"
+    fi
+done
+} 2>Foto.log
+```
+```bash
+0 20 1-31/7 2-31/4 * * bash /home/bagas/SoalShift/soal3b.sh
+```
+Pertama buat variabel TGL_NOW untuk menyimpan tanggal sekarang. Lalu buat folder dan diberi nama sesuai dengan TGL_NOW. Kemudian ganti directory ke folder yang baru dibuat. Langkah selanjutnya sama seperti soal sebelumnya. Dan terakhir atur cron agar script dapat dijalankan sesuai dengan kehendak soal.
+
