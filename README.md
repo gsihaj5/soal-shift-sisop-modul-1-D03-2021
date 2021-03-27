@@ -375,5 +375,89 @@ done
 ```bash
 0 20 1-31/7 2-31/4 * * bash /home/bagas/SoalShift/soal3b.sh
 ```
-Pertama buat variabel TGL_NOW untuk menyimpan tanggal sekarang. Lalu buat folder dan diberi nama sesuai dengan TGL_NOW. Kemudian ganti directory ke folder yang baru dibuat. Langkah selanjutnya sama seperti soal sebelumnya. Dan terakhir atur cron agar script dapat dijalankan sesuai dengan kehendak soal.
+Pertama buat variabel TGL_NOW untuk menyimpan tanggal sekarang dengan format DDMMYYYY. Lalu buat folder dan diberi nama sesuai dengan TGL_NOW. Kemudian ganti directory ke folder yang baru dibuat. Langkah selanjutnya sama seperti soal sebelumnya. Dan terakhir atur cron agar script dapat dijalankan sesuai dengan kehendak soal.
+
+### 3c
+```bash
+#!/bin/bash
+
+
+TGL_NOW="$(date +"%d-%m-%Y")"
+TGL_YST="$(date -d yesterday +"%d-%m-%Y")"
+
+kelck="/Kelinci_$TGL_YST"
+if [ -d "$kelck" ]
+then 
+    mkdir "Kucing_$TGL_NOW"
+    cd "Kucing_$TGL_NOW"
+    {
+    for ((i=1; i<24; i=i+1))
+    do
+        if [ $i -lt 10 ]
+        then
+            wget -c https://loremflickr.com/320/240/kitten -O Koleksi_0$i
+        else
+            wget -c https://loremflickr.com/320/240/kitten -O Koleksi_$i
+        fi
+    done
+    } 2>Foto.log
+else
+    mkdir "Kelinci_$TGL_NOW"
+    cd "Kelinci_$TGL_NOW"
+    {
+    for ((i=1; i<24; i=i+1))
+    do
+        if [ $i -lt 10 ]
+        then
+           wget -c https://loremflickr.com/320/240/bunny -O Koleksi_0$i
+        else
+           wget -c https://loremflickr.com/320/240/bunny -O Koleksi_$i
+        fi
+    done
+    } 2>Foto.log
+fi
+cd $PWD
+{
+declare -A filecksums
+
+test 0 -eq $# && set -- *
+
+for file in "$@"
+do
+    [[ -f "$file" ]] && [[ ! -h "$file" ]] || continue
+
+    cksum=$(cksum <"$file" | tr ' ' _)
+
+    if [[ -n "${filecksums[$cksum]}" ]] && [[ "${filecksums[$cksum]}" != "$file" ]]
+    then
+        echo "Found '$file' is a duplicate of '${filecksums[$cksum]}'" >&2
+        rm -f "$file"
+    else
+        filecksums[$cksum]="$file"
+    fi
+done
+} 2>>Foto.log
+```
+Pertama buat 2 variabel untuk menyimpan tanggal hari ini(TGL_NOW) dan kemarin(TGL_YST) dengan format DDMMYYYY. Kemudian cek apakah kemarin folder yang dibuat Kelinci atau bukan. Jika iya, maka eksekusi script bagian download gambar kucing. Jika bukan, eksekusi script bagian download gambar kelinci. Langkah-langkahnya mirip dengan soal sebelumnya, buat folder, ganti directory, download gambar, simpan di log, cari gambar yang sama, simpan di log lagi.
+
+### 3d
+```bash
+#!/bin/bash
+
+TGL_NOW="$(date +"%m%d%Y")"
+zip -P $TGL_NOW -rm Koleksi.zip Kucing_??-??-????/* Kelinci_??-??-????/* ??-??-????/*
+```
+Pertama buat variabel untuk menyimpan tanggal hari ini dengan format MMDDYYYY yang akan digunakan sebagai password nantinya. Lalu gunakan command zip untuk membuat zip -P agar dapat diberi password -rm agar file yang akan di-zip terhapus. File yang akan di-zip adalah folder-folder dengan nama Kucing_..., Kelinci_..., atau DD-MM-YYYY beserta isinya.
+
+### 3e
+```bash
+0 7 * * 1-5 bash /home/bagas/SoalShift/soal3d.sh
+0 18 * * 1-5 unzip -P $(date +"%m%d%Y") /home/bagas/SoalShift/Koleksi.zip && rm /home/bagas/SoalShift/Koleksi.zip
+```
+Di soal diminta untuk melakukan zip setiap jam 7 dan un-zip setiap jam 6 sore kecuali hari Sabtu dan Minggu. Maka dibuat cron dengan format seperti di atas.
+
+## Kekurangan dan Kendala🚑
+1. Cara yang digunakan belum optimal
+2. Bingung cara untuk menyeleksi file atau gambar yang sama
+3. Belum mengerti penggunaan perintah awk
 
