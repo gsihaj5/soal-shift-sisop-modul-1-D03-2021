@@ -1,2 +1,2 @@
-0 7 * * 1-5 bash /home/bagas/SoalShift/soal3d.sh
-0 18 * * 1-5 unzip -P $(date +"%m%d%Y") /home/bagas/SoalShift/Koleksi.zip && rm /home/bagas/SoalShift/Koleksi.zip
+0 7 * * 1-5 cd /home/bagas/SoalShift/ && bash soal3d.sh
+0 18 * * 1-5 cd /home/bagas/SoalShift/ && unzip -P $(date +"%m%d%Y") Koleksi.zip && rm Koleksi.zip
