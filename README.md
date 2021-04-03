@@ -375,7 +375,7 @@ done
 ```bash
 0 20 1-31/7 2-31/4 * * cd /home/bagas/SoalShift/ && bash soal3b.sh
 ```
-Pertama buat variabel TGL_NOW untuk menyimpan tanggal sekarang dengan format DDMMYYYY. Lalu buat folder dan diberi nama sesuai dengan TGL_NOW. Kemudian ganti directory ke folder yang baru dibuat. Langkah selanjutnya sama seperti soal sebelumnya. Dan terakhir atur cron agar script dapat dijalankan sesuai dengan kehendak soal.
+Pertama buat variabel TGL_NOW untuk menyimpan tanggal sekarang dengan format DD-MM-YYYY. Lalu buat folder dan diberi nama sesuai dengan TGL_NOW. Kemudian ganti directory ke folder yang baru dibuat. Langkah selanjutnya sama seperti soal sebelumnya. Dan terakhir atur cron agar script dapat dijalankan sesuai dengan kehendak soal.
 
 ### 3c
 ```bash
@@ -438,7 +438,7 @@ do
 done
 } 2>>Foto.log
 ```
-Pertama buat 2 variabel untuk menyimpan tanggal hari ini(TGL_NOW) dan kemarin(TGL_YST) dengan format DDMMYYYY. Kemudian cek apakah kemarin folder yang dibuat Kelinci atau bukan. Jika iya, maka eksekusi script bagian download gambar kucing. Jika bukan, eksekusi script bagian download gambar kelinci. Langkah-langkahnya mirip dengan soal sebelumnya, buat folder, ganti directory, download gambar, simpan di log, cari gambar yang sama, simpan di log lagi.
+Pertama buat 2 variabel untuk menyimpan tanggal hari ini(TGL_NOW) dan kemarin(TGL_YST) dengan format DD-MM-YYYY. Kemudian cek apakah kemarin folder yang dibuat Kelinci atau bukan. Jika iya, maka eksekusi script bagian download gambar kucing. Jika bukan, eksekusi script bagian download gambar kelinci. Langkah-langkahnya mirip dengan soal sebelumnya, buat folder, ganti directory, download gambar, simpan di log, cari gambar yang sama, simpan di log lagi.
 
 ### 3d
 ```bash
