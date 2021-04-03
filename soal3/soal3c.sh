@@ -4,7 +4,7 @@
 TGL_NOW="$(date +"%d-%m-%Y")"
 TGL_YST="$(date -d yesterday +"%d-%m-%Y")"
 
-kelck="/Kelinci_$TGL_YST"
+kelck="$PWD/Kelinci_$TGL_YST"
 if [ -d "$kelck" ]
 then 
     mkdir "Kucing_$TGL_NOW"
