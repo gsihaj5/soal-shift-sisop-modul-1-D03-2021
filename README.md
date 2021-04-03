@@ -524,10 +524,10 @@ Pertama buat variabel untuk menyimpan tanggal hari ini dengan format MMDDYYYY ya
 ### 3e
 ```bash
 0 7 * * 1-5 cd /home/bagas/SoalShift/ && bash soal3d.sh
-0 18 * * 1-5 cd /home/bagas/SoalShift/ && unzip -P $(date +"%m%d%Y") Koleksi.zip && rm Koleksi.zip
+0 18 * * 1-5 cd /home/bagas/SoalShift/ && unzip -P $( date +"\%m\%d\%Y" ) "Koleksi.zip" && rm "Koleksi.zip"
 ```
 Di soal diminta untuk melakukan zip setiap jam 7 dan un-zip setiap jam 6 sore kecuali hari Sabtu dan Minggu. Maka dibuat cron dengan format seperti di atas.
 
 ## Kekurangan dan Kendala🚑
 1. Cara yang digunakan belum optimal
-2. Pada soal 3e, jika di crontab langsung dijalankan unzip, seringkali tidak jalan. Namun jika unzip ditulis pada sebuah script dan lalu di crontab bash script tersebut, script dapat jalan.
+2. Pada soal 3e, terkadang membutuhkan waktu beberapa saat untuk menunggu perintah dijalankan.
