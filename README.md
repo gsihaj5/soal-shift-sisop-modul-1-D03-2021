@@ -354,10 +354,11 @@ Proses pengerjaan 2d dimulai dengan pemrosesan record dari setiap region, kemudi
 ### 2e
 Pada penampilan hasil.txt yang ditunjukkan pada soal 2e, didapat dari proses 2a,2b,2c,2d yang sudah diusakan untuk dikondisikan sedemikian hingga seperti hasil.txt
 
+![This is a alt text.](./nomer2_shift1.PNG "Nomer 2 setelah revisi.")
 
 ## Kekurangan dan Kendala🚑
-1. Cara yang digunakan belum optimal
-2. Terdapat output yang belum sesuai
+1. Cara yang digunakan belum optimal karena menghasilkan banyak file untuk membantu mendapatkan output file
+2. Terdapat output yang belum sesuai (telah di revisi)
 3. Belum mengerti sepenuhnya dalam penggunaan perintah awk
 
 
